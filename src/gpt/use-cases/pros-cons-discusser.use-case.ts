@@ -13,8 +13,8 @@ export const prosConsDiscusserUseCase = async (openai: OpenAI, { prompt }: Optio
                 role: "system",
                 content: `
                 Se te dará una pregunta y tu tarea es dar una respuesta con pros y contras,
-                la respuesta debe de ser en formato markdown, los pros y contras deben de estar en una lista,
-                Pon un título creativo a tu comparación, puedes usar emojis.
+                tu repuesta debe de estar en formato markdown, usa tipografía de subtítulos y bold donde consideres necesario, los pros y contras deben de estar en una lista de bullets.
+                Además, pon un título creativo a tu comparación, puedes usar emojis donde quieras.
                 `
             },
             {

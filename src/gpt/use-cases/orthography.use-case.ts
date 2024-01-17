@@ -26,6 +26,8 @@ export const orthographyCheckUseCase = async (openai: OpenAI, options: Options) 
             errors: string[], // ['error -> correción'],
             message: string // Utiliza varios emojis y texto para felicitar al usuario por su redacción.
           }
+
+          asegurate que el formato JSON sea siempre correcto en tu respuesta.
         `
         },
         {
