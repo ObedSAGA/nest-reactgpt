@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 
 import OpenAI from 'openai';
 
-import { orthographyCheckUseCase, prosConsDiscusserStreamUseCase, prosConsDiscusserUseCase, translateUseCase } from './use-cases';
+import { orthographyCheckUseCase, prosConsDiscusserStreamUseCase, prosConsDiscusserUseCase, textToAudioUseCase, translateUseCase } from './use-cases';
 import { OrthographyDto } from './dtos/orthography.dto';
-import { ProsConsDiscusserDto, TranslateDto } from './dtos';
+import { ProsConsDiscusserDto, TextToAudioDto, TranslateDto } from './dtos';
 
 @Injectable()
 export class GptService {
@@ -38,4 +38,14 @@ export class GptService {
       lang: translateDto.lang
     })
   }
+
+
+  async textToAudio(textToAudioDto: TextToAudioDto){
+    return await textToAudioUseCase(this.openai, {
+      prompt: textToAudioDto.prompt,
+      voice: textToAudioDto.voice
+    })
+  }
+
+
 }
