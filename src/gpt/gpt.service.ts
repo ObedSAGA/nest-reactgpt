@@ -8,6 +8,7 @@ import OpenAI from 'openai';
 import { orthographyCheckUseCase, prosConsDiscusserStreamUseCase, prosConsDiscusserUseCase, textToAudioUseCase, translateUseCase } from './use-cases';
 import { OrthographyDto } from './dtos/orthography.dto';
 import { ProsConsDiscusserDto, TextToAudioDto, TranslateDto } from './dtos';
+import { audioToTextUseCase } from "./use-cases/audio-to-text-use-case";
 
 @Injectable()
 export class GptService {
@@ -57,6 +58,10 @@ export class GptService {
     if(!wasFound) throw new NotFoundException(`File ${fileId} not found`);
 
     return filePath;
+  }
+
+  async audioToText(audioFile: Express.Multer.File, prompt?: string) {
+    return await audioToTextUseCase(this.openai, {audioFile, prompt})
   }
 
 }
