@@ -22,13 +22,11 @@ export const imageGenerationUseCase = async(openai: OpenAI, options: Options) =>
     });
 
     //Guarda imagen en file system
-    await downloadImageAsPng(response.data[0].url);
-
-    console.log(response);
+    const url = await downloadImageAsPng(response.data[0].url);
 
     return{
-        url: response.data[0].url,
-        localPath: '',
+        url: url,
+        openIaUrl: response.data[0].url,
         revise_prompt: response.data[0].revised_prompt,
     }
     
