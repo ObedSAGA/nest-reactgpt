@@ -13,7 +13,7 @@ export const imageGenerationUseCase = async(openai: OpenAI, options: Options) =>
     const {prompt, maskImage, originalImage} = options;
 
     //Verify original image and mask image to edit image
-    if (maskImage && originalImage) {
+    if (!maskImage && !originalImage) {
         
         const response = await openai.images.generate({
             prompt: prompt,
@@ -25,10 +25,10 @@ export const imageGenerationUseCase = async(openai: OpenAI, options: Options) =>
         });
     
         //Save image en file system as PNG
-        const url = await downloadImageAsPng(response.data[0].url);
-    
+        const fileName = await downloadImageAsPng(response.data[0].url);
+        const url = `${process.env.SERVER_URL}/gpt/image-generation/${fileName}`
         return{
-            url: url, // TODO: https:localhost:3000/gpt/image-generation/1707130370916
+            url: url,
             openIaUrl: response.data[0].url,
             revise_prompt: response.data[0].revised_prompt,
         }
@@ -48,11 +48,11 @@ export const imageGenerationUseCase = async(openai: OpenAI, options: Options) =>
         response_format: 'url'
     })
 
-    const localImagePath = await downloadImageAsPng(response.data[0].url);
-    const fileName = path.basename(localImagePath);
-    const publiUrl = `localhost:3000/gpt/image-generate/${fileName}`
+    
+    const fileName = await downloadImageAsPng(response.data[0].url);
+    const url = `${process.env.SERVER_URL}/gpt/image-generation/${fileName}`
     return{
-        url: publiUrl, // TODO: https:localhost:3000/gpt/image-generation/1707130370916
+        url: url, 
         openIaUrl: response.data[0].url,
         revise_prompt: response.data[0].revised_prompt,
     }
