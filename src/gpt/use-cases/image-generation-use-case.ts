@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { downloadImageAsPng } from "src/helpers";
 
 interface Options {
     prompt: string;
@@ -20,7 +21,8 @@ export const imageGenerationUseCase = async(openai: OpenAI, options: Options) =>
         response_format: 'url'
     });
 
-    //todo: Guardar imagen en file system
+    //Guarda imagen en file system
+    await downloadImageAsPng(response.data[0].url);
 
     console.log(response);
 
