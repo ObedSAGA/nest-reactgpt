@@ -119,9 +119,7 @@ export class GptController {
   async getGeneratedImage(
     @Param('fileName') fileName: String,
     @Res() res: Response,
-  ) {
-    console.log(fileName);
-    
+  ) {    
     const fileImagePath = await this.gptService.getGeneratedImage(fileName);
 
     res.setHeader('Content-type', 'image/png');
